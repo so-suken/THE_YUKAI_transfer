@@ -42,7 +42,8 @@ client.on("ready", message => {
 });
 
 
-const generalId = '977917173689380928';
+//const generalId = '977917173689380928';
+const generalId = '980183122081636474';
 
 function sendMsg(channelId, text, option={}){
   client.channels.get(channelId).send(text, option)
@@ -61,10 +62,11 @@ client.on("voiceStateUpdate", (oldState, newState) =>{
     if(new_size > 1){
       console.log("hitorikana")
       //if (newState.voiceChannelID == 977917173689380929) {
-        console.log("Voice channel should be fire")
-        client.channels.fetch(generalId).send("<@" + newState.members + "> enjoys voice chat!\n" + newState.url)
-        .then(message => console.log(`Sent message: ${message.content}`))
-        .catch(console.error);
+        //console.log(newState.id)
+        client.channels.cache.get(generalId).send("<@" + newState.id + "> enjoys voice chat!\n" + newState.createInvite)
+          .then(message => console.log(`Sent message: ${message.content}`))
+          .catch(console.error);
+      
       //sendMsg(generalId, "<@" + newState.members + "> enjoys voice chat!\n" + newState.url);
         //newState.voiceChannel.createInvite({"maxAge":"0"})
         //  .then(invite => sendMsg(

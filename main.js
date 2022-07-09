@@ -55,18 +55,22 @@ client.on("voiceStateUpdate", (oldState, newState) =>{
   if(oldState.channelID === null && newState.channelID !== null){
     console.log("member: " + newState.guild.members.cache.size);
     //if(client.channels.cache.get(newState.channelId).members == 1){
-    var old_size = oldState.guild.members.cache.size
+    //var old_size = oldState.guild.members.cache.size
     var new_size = newState.guild.members.cache.size
-    console.log("old: " + old_size + "\nnew: " + new_size);
-    if(old_size < new_size && new_size > 1){
+    //console.log("old: " + old_size + "\nnew: " + new_size);
+    if(new_size > 1){
       console.log("hitorikana")
-      if (newState.voiceChannelID == 977917173689380929) {
+      //if (newState.voiceChannelID == 977917173689380929) {
         console.log("Voice channel should be fire")
-        newState.voiceChannel.createInvite({"maxAge":"0"})
-          .then(invite => sendMsg(
-            generalId, "<@" + newState.user.id +"> started voice chat！\n" + invite.url
-          ));
-      }
+      client.channels.fetch('generalId').send("<@" + newState.members + "> enjoys voice chat!\n" + newState.url)
+  .then(message => console.log(`Sent message: ${message.content}`))
+  .catch(console.error);
+      //sendMsg(generalId, "<@" + newState.members + "> enjoys voice chat!\n" + newState.url);
+        //newState.voiceChannel.createInvite({"maxAge":"0"})
+        //  .then(invite => sendMsg(
+        //    generalId, "<@" + newState.user.id +"> started voice chat！\n" + invite.url
+        //  ));
+      //}
     }
   }
 });

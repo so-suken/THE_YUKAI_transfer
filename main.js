@@ -53,7 +53,7 @@ function sendMsg(channelId, text, option={}){
 client.on("voiceStateUpdate", (oldState, newState) =>{
   console.log("Voice channel is fire")
   if(oldState.channelID === null && newState.channelID !== null){
-    if(client.channels.get(newState.channelId).members.size == 1){
+    if(client.channels.cache.get(newState.channelId).members == 1){
       console.log("hitorikana")
       if (newState.voiceChannelID == 977917173689380929) {
         console.log("Voice channel should be fire")

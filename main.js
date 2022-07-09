@@ -59,7 +59,7 @@ client.on("message", message => {
     return;
   } else {
     //GASにメッセージを送信
-    var key_trigger = "@everyone";
+    var key_trigger = "@LINE";
     if (msg.content.startsWith(key_trigger)){
       msg.content = msg.content.replace(key_trigger, "");
       sendGAS(msg);

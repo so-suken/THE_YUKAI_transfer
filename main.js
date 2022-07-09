@@ -59,10 +59,12 @@ client.on("message", message => {
     return;
   } else {
     //GASにメッセージを送信
-    if (msg.content.startsWith("@test")){
+    var key_trigger = "@test";
+    if (msg.content.startsWith(key_trigger)){
+      msg.content = msg.content.replace(key_trigger, "");
       sendGAS(msg);
     }
-    else 
+    else console.log(1)
     return;
   }
 

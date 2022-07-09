@@ -138,12 +138,12 @@ if (process.env.DISCORD_BOT_TOKEN == undefined) {
   function post(url, data) {
     //axiosモジュールを使う
     const axiosBase = require("axios")
-    var options = {
+    /*var options = {
       url: url, //cheanged to "url" from "uri" <-- typo??
       headers: { "Content-type": "application/json" },
       json: data,
       followAllRedirects: true
-    };
+    };*/
     
     // postする
     const axios = axiosBase.create({
@@ -155,7 +155,7 @@ if (process.env.DISCORD_BOT_TOKEN == undefined) {
       responseType: "json",
     });
     
-    axios.post(url, options)
+    axios.post(url, data)
       .then(async function (response) {
       const responsedata = response.data; // 受け取ったデータ一覧(object)
     })

@@ -55,11 +55,11 @@ client.on("message", message => {
 
   // botへのリプライは無視
   if (msg.mentions.has(client.user)) {
-    msg.reply("hahaha- so-suke dayo");
+    //msg.reply("hahaha- so-suke dayo");
     return;
   } else {
     //GASにメッセージを送信
-    var key_trigger = "@test";
+    var key_trigger = "@everyone";
     if (msg.content.startsWith(key_trigger)){
       msg.content = msg.content.replace(key_trigger, "");
       sendGAS(msg);
@@ -90,12 +90,6 @@ client.on("message", message => {
   function post(url, data) {
     //axiosモジュールを使う
     const axiosBase = require("axios")
-    /*var options = {
-      url: url, //cheanged to "url" from "uri" <-- typo??
-      headers: { "Content-type": "application/json" },
-      json: data,
-      followAllRedirects: true
-    };*/
     
     // postする
     const axios = axiosBase.create({
@@ -118,28 +112,27 @@ client.on("message", message => {
     });
     
       
-      //console.log("body: " + body)
-      //var userid = response.body.userid;
-      var userid = msg.author.username
-      //var channelid = response.body.channelid;
-      var channelid = "980183122081636474"
-      // var message = response.body.message;
-      var message = msg.content
-      if (
-        userid != undefined &&
-        channelid != undefined &&
-        message != undefined
-      ) {
-        var channel = client.channels.cache.get(channelid);
-        if (channel != null) {
-          //console.log(channel);
-          channel.send("次の文章をLINEに転送しました: " + message);
-          }
+    //var userid = response.body.userid;
+    //var channelid = response.body.channelid;
+    // var message = response.body.message;  
+    var userid = msg.author.username
+    var channelid = "980183122081636474"
+      
+    var message = msg.content
+    if (
+      userid != undefined &&
+      channelid != undefined &&
+      message != undefined
+    ) {
+      var channel = client.channels.cache.get(channelid);
+      if (channel != null) {
+        channel.send("次の文章をLINEに転送しました: " + message);
         }
-      //else{
-      //  console.log("userid: " + userid + "\n" + "channelid: " + channelid + "\n message: " + message);
-      //}
-    }
+      }
+    //else{
+    //  console.log("userid: " + userid + "\n" + "channelid: " + channelid + "\n message: " + message);
+    //}
+  }
 });
 
 if (process.env.DISCORD_BOT_TOKEN == undefined) {

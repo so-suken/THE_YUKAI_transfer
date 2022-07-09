@@ -50,14 +50,17 @@ function sendMsg(channelId, text, option={}){
     .catch(console.error);
 }
 
-client.on("voiceStateUpdate", (oldGuildMember, newGuildMember) =>{
+client.on("voiceStateUpdate", (oldMember, newMember) =>{
   console.log("Voice channel is fire")
-  if(oldGuildMember.voiceChannelID === null && newGuildMember.voiceChannelID !== null){
-    if(client.channels.get(newGuildMember.voiceChannelID).members.size == 1){
-      if (newGuildMember.voiceChannelID == 977917173689380929) {
-        newGuildMember.voiceChannel.createInvite({"maxAge":"0"})
+  if(oldMember.voiceChannelID === undefined && newMember.voiceChannelID !== undefined){
+    console.log("kawarannna")
+    if(client.channels.get(newMember.voiceChannelId).members.size == 1){
+      console.log("hitorikana")
+      if (newMember.voiceChannelID == 977917173689380929) {
+        console.log("Voice channel should be fire")
+        newMember.voiceChannel.createInvite({"maxAge":"0"})
           .then(invite => sendMsg(
-            generalId, "<@" + newGuildMember.user.id +"> started voice chat！\n" + invite.url
+            generalId, "<@" + newMember.user.id +"> started voice chat！\n" + invite.url
           ));
       }
     }

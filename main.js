@@ -41,6 +41,22 @@ client.on("ready", message => {
   console.log("bot is ready!");
 });
 
+
+const generalId = [977917173689380928];
+
+client.on("voiceStateUpdate", (oldGuildMember, newGuildMember, message) =>{
+ //if(oldGuildMember.voiceChannelID === undefined && newGuildMember.voiceChannelID !== undefined){
+   if(client.channels.get(newGuildMember.voiceChannelID).members.size == 1){
+     if (newGuildMember.voiceChannelID == 977917173689380929) {
+       newGuildMember.voiceChannel.createInvite({"maxAge":"0"})
+         .then(invite => message.send(
+           generalId, "<@" + newGuildMember.user.id +"> started voice chat！\n" + invite.url
+         ));
+     }
+   }
+ //}
+});
+
 client.on("message", message => {
   if (message.author.bot) {
     return;

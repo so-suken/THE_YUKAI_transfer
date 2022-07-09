@@ -86,7 +86,7 @@ client.on("message", message => {
     console.log("Data -> " + JSON.stringify(jsonData));
   }
 
-  function post(url, data) {
+  /*function post(url, data) {
     //requestモジュールを使う
     var request = require("request");
     var options = {
@@ -105,8 +105,7 @@ client.on("message", message => {
         return;
       }
       
-      //msg.reply("yatta")
-      
+      //console.log("body: " + body)
       //var userid = response.body.userid;
       var userid = msg.author.username
       //var channelid = response.body.channelid;
@@ -134,6 +133,66 @@ client.on("message", message => {
 if (process.env.DISCORD_BOT_TOKEN == undefined) {
   console.log("please set ENV: DISCORD_BOT_TOKEN");
   process.exit(0);
-}
+}*/
 
+  function post(url, data) {
+    //axiosモジュールを使う
+    const axiosBase = require("axios")
+    var options = {
+      url: url, //cheanged to "url" from "uri" <-- typo??
+      headers: { "Content-type": "application/json" },
+      json: data,
+      followAllRedirects: true
+    };
+    
+    // postする
+    const axios = axiosBase.create({
+      baseURL: "https://script.google.com", // gas以外の場合はそれぞれ書き換え
+      headers: {
+        "Content-Type": "application/json",
+        "X-Requested-With": "XMLHttpRequest",
+      },
+      responseType: "json",
+    });
+    
+    axios.post(url, data)
+      .then(async function (response) {
+      const responsedata = response.data; // 受け取ったデータ一覧(object)
+    })
+      .catch(function (error) {
+        msg.reply("Error!!\n" + error);
+        console.log("ERROR!! occurred in Backend.");
+        console.log(error);
+    });
+    
+      
+      //console.log("body: " + body)
+      //var userid = response.body.userid;
+      var userid = msg.author.username
+      //var channelid = response.body.channelid;
+      var channelid = "980183122081636474"
+      // var message = response.body.message;
+      var message = msg.content
+      if (
+        userid != undefined &&
+        channelid != undefined &&
+        message != undefined
+      ) {
+        var channel = client.channels.cache.get(channelid);
+        if (channel != null) {
+          //console.log(channel);
+          channel.send("次の文章をLINEに転送しました: " + message);
+          }
+        }
+      //else{
+      //  console.log("userid: " + userid + "\n" + "channelid: " + channelid + "\n message: " + message);
+      //}
+  }
+});
+
+if (process.env.DISCORD_BOT_TOKEN == undefined) {
+  console.log("please set ENV: DISCORD_BOT_TOKEN");
+  process.exit(0);
+}
+  
 client.login(process.env.DISCORD_BOT_TOKEN);

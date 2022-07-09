@@ -53,7 +53,12 @@ function sendMsg(channelId, text, option={}){
 client.on("voiceStateUpdate", (oldState, newState) =>{
   console.log("Voice channel is fire")
   if(oldState.channelID === null && newState.channelID !== null){
-    if(client.channels.cache.get(newState.channelId).members == 1){
+    console.log("member: " + newState.guild.members.cache.size);
+    //if(client.channels.cache.get(newState.channelId).members == 1){
+    var old_size = oldState.guild.members.cache.size
+    var new_size = newState.guild.members.cache.size
+    console.log("old: " + old_size + "\nnew: " + new_size);
+    if(old_size < new_size && new_size > 1){
       console.log("hitorikana")
       if (newState.voiceChannelID == 977917173689380929) {
         console.log("Voice channel should be fire")

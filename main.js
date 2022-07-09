@@ -50,17 +50,16 @@ function sendMsg(channelId, text, option={}){
     .catch(console.error);
 }
 
-client.on("voiceStateUpdate", (oldMember, newMember) =>{
+client.on("voiceStateUpdate", (oldState, newState) =>{
   console.log("Voice channel is fire")
-  if(oldMember.voiceChannelID === undefined && newMember.voiceChannelID !== undefined){
-    console.log("kawarannna")
-    if(client.channels.get(newMember.voiceChannelId).members.size == 1){
+  if(oldState.channelID === null && newState.channelID !== null){
+    if(client.channels.get(newState.channelId).members.size == 1){
       console.log("hitorikana")
-      if (newMember.voiceChannelID == 977917173689380929) {
+      if (newState.voiceChannelID == 977917173689380929) {
         console.log("Voice channel should be fire")
-        newMember.voiceChannel.createInvite({"maxAge":"0"})
+        newState.voiceChannel.createInvite({"maxAge":"0"})
           .then(invite => sendMsg(
-            generalId, "<@" + newMember.user.id +"> started voice chat！\n" + invite.url
+            generalId, "<@" + newState.user.id +"> started voice chat！\n" + invite.url
           ));
       }
     }

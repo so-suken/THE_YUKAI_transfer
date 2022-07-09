@@ -101,7 +101,7 @@ client.on("message", message => {
       //var userid = response.body.userid;
       var userid = msg.author.username
       //var channelid = response.body.channelid;
-      var channelid = "977917173689380928"
+      var channelid = "980183122081636474"
       // var message = response.body.message;
       var message = msg.content
       if (
@@ -109,18 +109,15 @@ client.on("message", message => {
         channelid != undefined &&
         message != undefined
       ) {
-        var channel = client.channels.get(channelid);
+        var channel = client.channels.cache.get(channelid);
         if (channel != null) {
-          console.log(channel);
+          //console.log(channel);
           channel.send(message);
         }
-        else {
-          console.log(channel);
-        }
       }
-      else{
-        console.log("userid: " + userid + "\n" + "channelid: " + channelid + "\n message: " + message);
-      }
+      //else{
+      //  console.log("userid: " + userid + "\n" + "channelid: " + channelid + "\n message: " + message);
+      //}
     });
   }
 });

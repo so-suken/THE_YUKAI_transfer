@@ -64,7 +64,7 @@ client.on("message", message => {
       msg.content = msg.content.replace(key_trigger, "");
       sendGAS(msg);
     }
-    else console.log(1)
+    else console.log(msg.author.username + ": " + msg.content);
     return;
   }
 

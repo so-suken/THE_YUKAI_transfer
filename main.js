@@ -59,7 +59,10 @@ client.on("message", message => {
     return;
   } else {
     //GASにメッセージを送信
-    sendGAS(msg);
+    if (msg.content.startsWith("@test")){
+      sendGAS(msg);
+    }
+    else 
     return;
   }
 
@@ -112,7 +115,7 @@ client.on("message", message => {
         var channel = client.channels.cache.get(channelid);
         if (channel != null) {
           //console.log(channel);
-          channel.send(message);
+          channel.send("次の文章をLINEに転送しました: " + message);
         }
       }
       //else{

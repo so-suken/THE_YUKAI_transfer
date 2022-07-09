@@ -82,6 +82,8 @@ client.on("message", message => {
     console.log(msg.author.username);
     console.log(msg.content);
     post(process.env.GAS_URL, jsonData);
+    console.log("sent to -> " + process.env.GAS_URL);
+    console.log("Data -> " + jsonData);
   }
 
   function post(url, data) {

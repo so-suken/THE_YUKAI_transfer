@@ -90,13 +90,14 @@ client.on("message", message => {
     //requestモジュールを使う
     var request = require("request");
     var options = {
-      url: url, //cheanged to "url" from "uri" <-- typo??
+      uri: url, //cheanged to "url" from "uri" <-- typo??
       headers: { "Content-type": "application/json" },
       json: data,
       followAllRedirects: true
     };
     // postする
-    request.post(options, function(error, response, body) {
+    var r_post = request.post(options, function(error, response, body) {
+      
       if (error != null) {
         msg.reply("更新に失敗しました\n" + error);
         console.log("更新に失敗しました");
@@ -126,6 +127,7 @@ client.on("message", message => {
       //  console.log("userid: " + userid + "\n" + "channelid: " + channelid + "\n message: " + message);
       //}
     });
+    console.log(r_post) //success with 201
   }
 });
 

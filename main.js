@@ -42,19 +42,26 @@ client.on("ready", message => {
 });
 
 
-const generalId = [977917173689380928];
+const generalId = 977917173689380928;
 
-client.on("voiceStateUpdate", (oldGuildMember, newGuildMember, message) =>{
- //if(oldGuildMember.voiceChannelID === undefined && newGuildMember.voiceChannelID !== undefined){
-   if(client.channels.get(newGuildMember.voiceChannelID).members.size == 1){
-     if (newGuildMember.voiceChannelID == 977917173689380929) {
-       newGuildMember.voiceChannel.createInvite({"maxAge":"0"})
-         .then(invite => message.send(
-           generalId, "<@" + newGuildMember.user.id +"> started voice chat！\n" + invite.url
-         ));
-     }
-   }
- //}
+function sendMsg(channelId, text, option={}){
+  client.channels.get(channelId).send(text, option)
+    .then(console.log("sent message: " + text + JSON.stringify(option)))
+    .catch(console.error);
+}
+
+client.on("voiceStateUpdate", (oldGuildMember, newGuildMember) =>{
+  console.log("Voice channel is fire")
+  if(oldGuildMember.voiceChannelID === null && newGuildMember.voiceChannelID !== null){
+    if(client.channels.get(newGuildMember.voiceChannelID).members.size == 1){
+      if (newGuildMember.voiceChannelID == 977917173689380929) {
+        newGuildMember.voiceChannel.createInvite({"maxAge":"0"})
+          .then(invite => sendMsg(
+            generalId, "<@" + newGuildMember.user.id +"> started voice chat！\n" + invite.url
+          ));
+      }
+    }
+  }
 });
 
 client.on("message", message => {

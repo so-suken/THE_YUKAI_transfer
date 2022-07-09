@@ -96,8 +96,9 @@ client.on("message", message => {
       followAllRedirects: true
     };
     // postする
-    var r_post = request.post(options, function(error, response, body) {
+    request.post(options, function(error, response, body) {
       
+      console.log(response) //success with 201
       if (error != null) {
         msg.reply("更新に失敗しました\n" + error);
         console.log("更新に失敗しました");
@@ -127,7 +128,6 @@ client.on("message", message => {
       //  console.log("userid: " + userid + "\n" + "channelid: " + channelid + "\n message: " + message);
       //}
     });
-    console.log(r_post) //success with 201
   }
 });
 

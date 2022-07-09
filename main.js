@@ -34,6 +34,7 @@ http.createServer(function(req, res){
 const discord = require("discord.js");
 const client = new discord.Client();
 
+
 client.on("ready", message => {
   // botのステータス表示
   client.user.setPresence({ game: { name: "with discord.js" } });
@@ -97,9 +98,12 @@ client.on("message", message => {
       
       //msg.reply("yatta")
       
-      var userid = response.body.userid;
-      var channelid = response.body.channelid;
-      var message = response.body.message;
+      //var userid = response.body.userid;
+      var userid = msg.author.username
+      //var channelid = response.body.channelid;
+      var channelid = "977917173689380928"
+      // var message = response.body.message;
+      var message = msg.content
       if (
         userid != undefined &&
         channelid != undefined &&

@@ -46,7 +46,7 @@ client.on("message", message => {
   }
   // DMには応答しない
   if (message.channel.type == "dm") {
-    //"hahaha-- so-suke dayo" //そうすけのいたずら
+    message.reply("そんなにそうすけと会話したいのかい??"); //そうすけのいたずら
     return;
   }
 
@@ -54,7 +54,7 @@ client.on("message", message => {
 
   // botへのリプライは無視
   if (msg.mentions.has(client.user)) {
-    msg.reply("hahaha- so-suke dayo")
+    msg.reply("hahaha- so-suke dayo");
     return;
   } else {
     //GASにメッセージを送信
@@ -82,7 +82,7 @@ client.on("message", message => {
     //requestモジュールを使う
     var request = require("request");
     var options = {
-      uri: url,
+      url: url, //cheanged to "url" from "uri" <-- typo??
       headers: { "Content-type": "application/json" },
       json: data,
       followAllRedirects: true
@@ -107,8 +107,15 @@ client.on("message", message => {
       ) {
         var channel = client.channels.get(channelid);
         if (channel != null) {
+          console.log(channel);
           channel.send(message);
         }
+        else {
+          console.log(channel);
+        }
+      }
+      else{
+        console.log("userid: " + userid + "\n" + "channelid: " + channelid + "\n message: " + message);
       }
     });
   }

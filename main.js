@@ -46,6 +46,7 @@ client.on("message", message => {
   }
   // DMには応答しない
   if (message.channel.type == "dm") {
+    //"hahaha-- so-suke dayo" //そうすけのいたずら
     return;
   }
 

@@ -90,11 +90,13 @@ client.on("message", message => {
     // postする
     request.post(options, function(error, response, body) {
       if (error != null) {
-        msg.reply("更新に失敗しました");
+        msg.reply("更新に失敗しました\n" + error);
         console.log("更新に失敗しました");
         return;
       }
-
+      
+      //msg.reply("yatta")
+      
       var userid = response.body.userid;
       var channelid = response.body.channelid;
       var message = response.body.message;

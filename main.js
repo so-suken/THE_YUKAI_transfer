@@ -59,16 +59,19 @@ client.on("voiceStateUpdate", (oldState, newState) =>{
     //var old_size = oldState.guild.members.cache.size
     var new_size = newState.guild.members.cache.size
     //console.log("old: " + old_size + "\nnew: " + new_size);
-    const invite = newState.channel.createInvite()
+    const invite_url = newState.channel.createInvite()
     .then(invite => console.log(`Created an invite with a code of ${invite.code}`))
-    .catch(console.error)
-    ;
+    .then(invite => {
+      var invite_url = `${invite.url}`
+      return invite_url;
+      })
+    .catch(console.error);
     if(new_size > 1){
       console.log("hitorikana")
       //if (newState.voiceChannelID == 977917173689380929) {
         console.log(newState.channel.url);
         client.channels.cache.get(generalId).send("<@" + newState.id + "> enjoys voice chat!\n" + 
-                                                  invite)
+                                                  invite_url)
           .then(message => console.log(`Sent message: ${message.content}`))
           .catch(console.error);
       

@@ -54,6 +54,7 @@ client.on("message", message => {
 
   // botへのリプライは無視
   if (msg.mentions.has(client.user)) {
+    msg.reply("hahaha- so-suke dayo")
     return;
   } else {
     //GASにメッセージを送信

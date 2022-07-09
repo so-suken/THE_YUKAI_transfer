@@ -155,14 +155,14 @@ if (process.env.DISCORD_BOT_TOKEN == undefined) {
       responseType: "json",
     });
     
-    axios.post(url, data)
+    axios.post(url, options)
       .then(async function (response) {
       const responsedata = response.data; // 受け取ったデータ一覧(object)
     })
       .catch(function (error) {
         msg.reply("Error!!\n" + error);
         console.log("ERROR!! occurred in Backend.");
-        console.log(error);
+        console.log(error.message);
     });
     
       
@@ -187,7 +187,7 @@ if (process.env.DISCORD_BOT_TOKEN == undefined) {
       //else{
       //  console.log("userid: " + userid + "\n" + "channelid: " + channelid + "\n message: " + message);
       //}
-  }
+    }
 });
 
 if (process.env.DISCORD_BOT_TOKEN == undefined) {

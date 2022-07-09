@@ -42,8 +42,8 @@ client.on("ready", message => {
 });
 
 
-//const generalId = '977917173689380928';
-const generalId = '980183122081636474';
+const generalId = '977917173689380928'; // general
+//const generalId = '980183122081636474'; // bot_dump
 
 function sendMsg(channelId, text, option={}){
   client.channels.get(channelId).send(text, option)
@@ -59,26 +59,18 @@ client.on("voiceStateUpdate", (oldState, newState) =>{
     //var old_size = oldState.guild.members.cache.size
     var new_size = newState.guild.members.cache.size
     //console.log("old: " + old_size + "\nnew: " + new_size);
-    if(new_size > 1){
+    if(new_size > 2){
       //console.log("hitorikana")
       //if (newState.voiceChannelID == 977917173689380929) {
       //console.log(newState.channel.url);
       newState.channel.createInvite()
-        .then(invite => console.log(`Created an invite with a code of ${invite.code}`))
         .then(invite => {
-          var invite_url = `${invite.url}`;
-          client.channels.cache.get(generalId).send("<@" + newState.id + "> enjoys voice chat!\n" + invite_url)
-          .then(message => console.log(`Sent message: ${message.content}`))
-          .catch(console.error);
+          console.log(`Created an invite with a code of ${invite.code}`)
+          client.channels.cache.get(generalId).send("<@" + newState.id + "> enjoys voice chat!\n" + `${invite.url}`)
+            .then(message => console.log(`Sent message: ${message.content}`))
+            .catch(console.error);
       })
-    .catch(console.error);
-      
-      //sendMsg(generalId, "<@" + newState.members + "> enjoys voice chat!\n" + newState.url);
-        //newState.voiceChannel.createInvite({"maxAge":"0"})
-        //  .then(invite => sendMsg(
-        //    generalId, "<@" + newState.user.id +"> started voice chat！\n" + invite.url
-        //  ));
-      //}
+        .catch(console.error);
     }
   }
 });

@@ -90,7 +90,7 @@ client.on("message", message => {
     //requestモジュールを使う
     var request = require("request");
     var options = {
-      uri: url, //cheanged to "url" from "uri" <-- typo??
+      url: url, //cheanged to "url" from "uri" <-- typo??
       headers: { "Content-type": "application/json" },
       json: data,
       followAllRedirects: true
@@ -98,7 +98,7 @@ client.on("message", message => {
     // postする
     request.post(options, function(error, response, body) {
       
-      console.log(response) //success with 201
+      console.log(response.statusCode) //success with 201
       if (error != null) {
         msg.reply("更新に失敗しました\n" + error);
         console.log("更新に失敗しました");

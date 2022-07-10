@@ -64,7 +64,7 @@ client.on("voiceStateUpdate", (oldState, newState) =>{
                                                       + `${invite.url}`)
               .then(message => console.log(`Sent message: ${message.content}`))
               .catch(console.error);
-        })
+          })
           .catch(console.error);
       }
     }
@@ -91,7 +91,13 @@ client.on("message", message => {
     //GASにメッセージを送信
     var key_trigger = "@LINE";
     if (msg.content.startsWith(key_trigger)){　// includesで文字列を'含むか'になるはず
-      msg.content = msg.content.replace(key_trigger, "");
+      msg.channel.createInvite()
+        .then(invite => {
+          console.log(`Created an invite with a code of ${invite.code}`);
+          msg.content = msg.content.replace(key_trigger, "") + "\n--\n Join our 'worthwhile' conversation -> " + invite.url;
+        })
+        .catch(console.error);
+      
       sendGAS(msg);
     }
     else console.log(msg.author.username + ": " + msg.content);
@@ -145,8 +151,8 @@ client.on("message", message => {
     //var userid = response.body.userid;
     //var channelid = response.body.channelid;
     // var message = response.body.message;  
-    var userid = msg.author.username
-    var channelid = "980183122081636474"
+    var userid = msg.author.username;
+    var channelid =　process.env.BOT_DUMP_CHAN;
       
     var message = msg.content
     if (

@@ -42,8 +42,8 @@ client.on("ready", message => {
 });
 
 
-const generalId = '977917173689380928'; // general
-//const generalId = '980183122081636474'; // bot_dump
+//const generalId = '977917173689380928'; // general
+const generalId = '980183122081636474'; // bot_dump
 
 function sendMsg(channelId, text, option={}){
   client.channels.get(channelId).send(text, option)
@@ -54,12 +54,12 @@ function sendMsg(channelId, text, option={}){
 client.on("voiceStateUpdate", (oldState, newState) =>{
   console.log("Voice channel is fire")
   if(oldState.channelID === null && newState.channelID !== null){
-    console.log("member: " + newState.guild.members.cache.size);
+    console.log("member: " + newState.channel.members.size);
     //if(client.channels.cache.get(newState.channelId).members == 1){
     //var old_size = oldState.guild.members.cache.size
-    var new_size = newState.guild.members.cache.size
+    var new_size = newState.channel.members.size
     //console.log("old: " + old_size + "\nnew: " + new_size);
-    if(new_size > 2){
+    if(new_size == 2){
       //console.log("hitorikana")
       //if (newState.voiceChannelID == 977917173689380929) {
       //console.log(newState.channel.url);

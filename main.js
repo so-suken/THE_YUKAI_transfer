@@ -53,14 +53,14 @@ client.on("voiceStateUpdate", (oldState, newState) =>{
     var new_size = newState.channel.members.size
     console.log("old: " + old_chan + "\nnew: " + new_size);
     // 1人から2人に増えたことの確認
-    if((old_chan != null && old_chan.members.size == 1) && new_size == 2){
+    if((old_chan == null || (old_chan != null && old_chan.members.size == 1)) && new_size == 2){
       //console.log(newState.channel.id);
       if (newState.channel.id == process.env.TARGET_VOICE_CHAN) {
         newState.channel.createInvite()
           .then(invite => {
             console.log(`Created an invite with a code of ${invite.code}`)
             client.channels.cache.get(generalId).send("<#" + newState.channel.id + "> is on fire!!\n"
-                                                      + "<@" + newState.id + "> enjoys voice chat!\n" 
+                                                      + "<@" + newState.channel.members + "> enjoys voice chat!\n" 
                                                       + `${invite.url}`)
               .then(message => console.log(`Sent message: ${message.content}`))
               .catch(console.error);

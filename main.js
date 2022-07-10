@@ -54,23 +54,22 @@ function sendMsg(channelId, text, option={}){
 client.on("voiceStateUpdate", (oldState, newState) =>{
   console.log("Voice channel is fire")
   if(oldState.channelID === null && newState.channelID !== null){
-    console.log("member: " + newState.channel.members.size);
-    //if(client.channels.cache.get(newState.channelId).members == 1){
-    //var old_size = oldState.guild.members.cache.size
+    var old_chan = oldState.channel
     var new_size = newState.channel.members.size
-    //console.log("old: " + old_size + "\nnew: " + new_size);
-    if(new_size == 2){
-      //console.log("hitorikana")
-      //if (newState.voiceChannelID == 977917173689380929) {
-      //console.log(newState.channel.url);
-      newState.channel.createInvite()
-        .then(invite => {
-          console.log(`Created an invite with a code of ${invite.code}`)
-          client.channels.cache.get(generalId).send("<@" + newState.id + "> enjoys voice chat!\n" + `${invite.url}`)
-            .then(message => console.log(`Sent message: ${message.content}`))
-            .catch(console.error);
-      })
-        .catch(console.error);
+    console.log("old: " + old_chan + "\nnew: " + new_size);
+    // 1人から2人に増えたことの確認
+    if((old_chan != null && old_chan.members.size == 1) && new_size == 2){
+      if (newState.voiceChannelID == 977917173689380929) {
+        //console.log(newState.channel.url);
+        newState.channel.createInvite()
+          .then(invite => {
+            console.log(`Created an invite with a code of ${invite.code}`)
+            client.channels.cache.get(generalId).send("<@" + newState.id + "> enjoys voice chat!\n" + `${invite.url}`)
+              .then(message => console.log(`Sent message: ${message.content}`))
+              .catch(console.error);
+        })
+          .catch(console.error);
+      }
     }
   }
 });

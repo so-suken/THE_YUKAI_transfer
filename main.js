@@ -58,9 +58,11 @@ client.on("voiceStateUpdate", (oldState, newState) =>{
       if (newState.channel.id == process.env.TARGET_VOICE_CHAN) {
         newState.channel.createInvite()
           .then(invite => {
-            console.log(`Created an invite with a code of ${invite.code}`)
-            client.channels.cache.get(generalId).send("<#" + newState.channel.id + "> is on fire!!\n"
-                                                      + "<@" + newState.member + "> enjoys voice chat!\n" 
+            console.log(`Created an invite with a code of ${invite.code}`);
+            newState.channel.members.each()
+  
+            client.channels.cache.get(generalId).send("<#" + newState.channel.id + "> is on fire:fire:!!\n"
+                                                      + "<@" + newState.member + "> enjoys voice chat:grin:!\n" 
                                                       + `${invite.url}`)
               .then(message => console.log(`Sent message: ${message.content}`))
               .catch(console.error);

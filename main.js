@@ -56,21 +56,34 @@ client.on("voiceStateUpdate", (oldState, newState) =>{
     // 1人から2人に増えたことの確認
     if((old_chan == null || (old_chan != null && old_chan.members.size == 1)) && new_size == 2){
       //console.log(newState.channel.id);
-      if (old_chan == null){
-        
-
-      if (newState.channel.id == process.env.TARGET_VOICE_CHAN) {
-        newState.channel.createInvite()
-          .then(invite => {
-            console.log(`Created an invite with a code of ${invite.code}`);
-            client.channels.cache.get(generalId).send("<#" + newState.channel.id + "> is on fire:fire:!!\n"
-                                                      + newState.channel.members.size + " people including <@" + newState.member + "> are having a blast in voice chat:grin:!\n" 
-                                                      + `${invite.url}`)
-              .then(message => console.log(`Sent message: ${message.content}`))
-              .catch(console.error);
-          })
-          .catch(console.error);
-      }
+      //if (old_chan == null){
+        if (newState.channel.id == process.env.TARGET_VOICE_CHAN) {
+          newState.channel.createInvite()
+            .then(invite => {
+              console.log(`Created an invite with a code of ${invite.code}`);
+              client.channels.cache.get(generalId).send("<#" + newState.channel.id + "> is on fire:fire:!!\n"
+                                                        //+ newState.channel.members.size + " people including <@" + newState.member + "> are having a blast in voice chat:grin:!\n" 
+                                                        + "<@" + oldState.member + "> and <@" + newState.member + "> are having a blast in voice chat:grin:!\n"
+                                                        + `${invite.url}`)
+                .then(message => console.log(`Sent message: ${message.content}`))
+                .catch(console.error);
+            })
+            .catch(console.error);
+        }
+      //}/*else{
+        if (newState.channel.id == process.env.TARGET_VOICE_CHAN) {
+          newState.channel.createInvite()
+            .then(invite => {
+              console.log(`Created an invite with a code of ${invite.code}`);
+              client.channels.cache.get(generalId).send("<#" + newState.channel.id + "> is on fire:fire:!!\n"
+                                                        + "<@" + oldState.member + "> and <@" + newState.member + "> are having a blast in voice chat:grin:!\n" 
+                                                        + `${invite.url}`)
+                .then(message => console.log(`Sent message: ${message.content}`))
+                .catch(console.error);
+            })
+            .catch(console.error);
+        }
+      }*/
     }
   }
 });

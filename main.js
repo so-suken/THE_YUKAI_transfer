@@ -90,7 +90,7 @@ client.on("message", message => {
   } else {
     //GASにメッセージを送信
     var key_trigger = "@LINE";
-    if (msg.content.startsWith(key_trigger)){
+    if (msg.content.startsWith(key_trigger)){　// includesで文字列を'含むか'になるはず
       msg.content = msg.content.replace(key_trigger, "");
       sendGAS(msg);
     }

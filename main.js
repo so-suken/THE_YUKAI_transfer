@@ -42,8 +42,8 @@ client.on("ready", message => {
 });
 
 
-//const generalId = '977917173689380928'; // general
-const generalId = '980183122081636474'; // bot_dump
+//const generalId = process.env.GENERAL_CHAN; // general
+const generalId = process.env.BOT_DUMP_CHAN; // bot_dump
 
 function sendMsg(channelId, text, option={}){
   client.channels.get(channelId).send(text, option)
@@ -58,13 +58,15 @@ client.on("voiceStateUpdate", (oldState, newState) =>{
     var new_size = newState.channel.members.size
     console.log("old: " + old_chan + "\nnew: " + new_size);
     // 1人から2人に増えたことの確認
-    if((old_chan != null && old_chan.members.size == 1) && new_size == 2){
-      if (newState.voiceChannelID == 977917173689380929) {
+    if((old_chan != null && old_chan.members.size == 1) || new_size == 1){
+      if (newState.voiceChannelID == process.env.TARGET_VOICE_CHAN) {
         //console.log(newState.channel.url);
         newState.channel.createInvite()
           .then(invite => {
             console.log(`Created an invite with a code of ${invite.code}`)
-            client.channels.cache.get(generalId).send("<@" + newState.id + "> enjoys voice chat!\n" + `${invite.url}`)
+            client.channels.cache.get(generalId).send("<#" + newState.voiceChannelID + "> is on fire!!\n"
+                                                      + "<@" + newState.id + "> enjoys voice chat!\n" 
+                                                      + `${invite.url}`)
               .then(message => console.log(`Sent message: ${message.content}`))
               .catch(console.error);
         })

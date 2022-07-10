@@ -48,13 +48,17 @@ const generalId = process.env.GENERAL_CHAN; // general
 //ボイスチャットが二人以上になったら通知
 client.on("voiceStateUpdate", (oldState, newState) =>{
   console.log("Voice channel is fire")
-  if(oldState.channelID === null && newState.channelID !== null){
+  if(newState.channelID !== null){
     var old_chan = oldState.channel
     var new_size = newState.channel.members.size
     console.log("old: " + old_chan + "\nnew: " + new_size);
+    console.log("old_member?: " + oldState.member);
     // 1人から2人に増えたことの確認
     if((old_chan == null || (old_chan != null && old_chan.members.size == 1)) && new_size == 2){
       //console.log(newState.channel.id);
+      if (old_chan == null){
+        
+
       if (newState.channel.id == process.env.TARGET_VOICE_CHAN) {
         newState.channel.createInvite()
           .then(invite => {

@@ -70,7 +70,7 @@ client.on("voiceStateUpdate", (oldState, newState) =>{
             })
             .catch(console.error);
         }
-      //}/*else{
+      /*}else{
         if (newState.channel.id == process.env.TARGET_VOICE_CHAN) {
           newState.channel.createInvite()
             .then(invite => {

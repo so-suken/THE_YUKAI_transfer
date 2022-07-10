@@ -42,8 +42,8 @@ client.on("ready", message => {
 });
 
 
-//const generalId = process.env.GENERAL_CHAN; // general
-const generalId = process.env.BOT_DUMP_CHAN; // bot_dump
+const generalId = process.env.GENERAL_CHAN; // general
+//const generalId = process.env.BOT_DUMP_CHAN; // bot_dump
 
 //ボイスチャットが二人以上になったら通知
 client.on("voiceStateUpdate", (oldState, newState) =>{
@@ -53,7 +53,7 @@ client.on("voiceStateUpdate", (oldState, newState) =>{
     var new_size = newState.channel.members.size
     console.log("old: " + old_chan + "\nnew: " + new_size);
     // 1人から2人に増えたことの確認
-    if((old_chan != null && old_chan.members.size == 1) || new_size == 1){
+    if((old_chan != null && old_chan.members.size == 1) && new_size == 2){
       //console.log(newState.channel.id);
       if (newState.channel.id == process.env.TARGET_VOICE_CHAN) {
         newState.channel.createInvite()
@@ -90,15 +90,14 @@ client.on("message", message => {
   } else {
     //GASにメッセージを送信
     var key_trigger = "@LINE";
-    if (msg.content.startsWith(key_trigger)){　// includesで文字列を'含むか'になるはず
+    if (msg.content.includes(key_trigger)){　// includesで文字列を'含むか'になるはず (startWithでなく)
       msg.channel.createInvite()
         .then(invite => {
           console.log(`Created an invite with a code of ${invite.code}`);
-          msg.content = msg.content.replace(key_trigger, "") + "\n--\n Join our 'worthwhile' conversation -> " + invite.url;
+          msg.content = msg.content.replace(key_trigger, "") + "\n--\n Join our 'worthwhile' conversation -> " + `${invite.url}`;
+          sendGAS(msg);
         })
         .catch(console.error);
-      
-      sendGAS(msg);
     }
     else console.log(msg.author.username + ": " + msg.content);
     return;

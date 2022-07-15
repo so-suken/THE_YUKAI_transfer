@@ -1,7 +1,7 @@
 ENV.setscprop()
 var prop = PropertiesService.getScriptProperties();
 var CHANNEL_ACCESS_TOKEN = prop.getProperty("LINE_TOKEN");
-var GLITCH_TOKEN = prop.getProperty("GLITCH_TOKEN");
+var GLITCH_URL = prop.getProperty("GLITCH_TOKEN");
 var TO_ID = prop.getProperty("TO_ID")
 
 // Glitchサーバーを起動させる
